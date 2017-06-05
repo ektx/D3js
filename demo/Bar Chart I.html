@@ -1,0 +1,27 @@
+<!DOCtype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HTML_Title</title>
+		<script src="../d3.js"></script>
+	</head>
+	<body>
+		<section></section>
+		<section></section>
+	</body>
+	<script>
+	var data = [4, 8, 10, 16, 23, 56];
+
+	var div = document.createElement('div');
+	div.innerHTML = 'Hello World!';
+	document.body.appendChild(div);
+
+	var body = d3.select('body');
+	var div = body.append('div');
+	div.html('Hello, World!');
+
+	var section = d3.selectAll('section');
+	var div = section.append('div');
+	div.html('Hi');
+	</script>
+</html>
