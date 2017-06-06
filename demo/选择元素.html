@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选择元素</title>
+</head>
+<body>
+	<h1>选择元素</h1>
+	<ul>
+		<li>d3.select()：是选择所有指定元素的第一个</li>
+		<li>d3.selectAll()：是选择指定元素的全部</li>
+	</ul>
+
+	<script src="../d3/d3.min.js"></script>
+	<script>
+
+		var body = d3.select('body');
+		var li1 = d3.select('li');
+		var lis = d3.selectAll('li');
+	</script>
+</body>
+</html>
