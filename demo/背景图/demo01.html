@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../../d3/d3.js"></script>
+    <script>
+      const svg = d3
+        .select('body')
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 500)
+      // 向SVG中添加一个图片
+      svg.append('image').attr('xlink:href', '/public/map.png')
+    </script>
+  </body>
+</html>
