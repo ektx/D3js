@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../../d3/d3.js"></script>
+    <script>
+      const center = { x: 30, y: 300, k: 1 }
+      const svg = d3
+        .select('body')
+        .append('svg')
+        .attr('width', 800)
+        .attr('height', 400)
+        .style('border', '1px solid #fff')
+
+      const map = svg.append('g')
+      map.append('image').attr('xlink:href', '/public/map.png')
+
+      const circle = map
+        .append('circle')
+        .attr('id', 'test1')
+        .attr('cx', center.x)
+        .attr('cy', center.y)
+        .attr('r', 20)
+        .attr('fill', 'yellow')
+
+      // 建立缩放事件
+      // const zoom = d3.zoom().on('zoom', function (event) {
+      //   // 监听缩放事件 event是拿到的dom元素
+      //   console.log(event)
+      //   circle.attr('transform', event.transform)
+      // })
+      // // 调用
+      // svg.call(zoom)
+
+      // 此外可以使用上面不同的api方法调整缩放效果
+      const zoom = d3
+        .zoom()
+        .extent([
+          [0, 0], // [x0, y0] 视图范围的左上角
+          [10, 10] // [x1, y1]] 视图范围的右下角
+        ]) // 设置viewBox
+        .scaleExtent([0.5, 10]) //设置缩放最大比例
+        .duration(200) // 设置鼠标双击生效时间
+        .on('zoom', zoomed)
+
+      svg.call(zoom)
+      // .on('wheel.zoom', null) // 取消滚轮缩放
+
+      // 算出居中得x、y坐标（往俩盒子 一个大盒子（画布）和另外一个盒子（图形撑起来得））怎么让图形撑起来得居中呢！！！
+      // 用画布自身得一半 减去 gropu得一半 * 缩放 K, 再减去gropu得translate
+      const translateByX = 800 / 2 - center.x * center.k
+      const translateByY = 400 / 2 - center.y * center.k
+
+      const d3Transform = d3.zoomIdentity
+        .translate(translateByX, translateByY)
+        .scale(center.k)
+      svg.transition().duration(0).call(zoom.transform, d3Transform)
+
+      function zoomed(event) {
+        console.log(event)
+        map.attr('transform', event.transform)
+      }
+    </script>
+  </body>
+</html>
