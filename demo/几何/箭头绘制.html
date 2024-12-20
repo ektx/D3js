@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../../d3/d3.js"></script>
+    <script>
+      const svg = d3
+        .select('body')
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 500)
+
+      let defs = svg.append('defs')
+      let arrowMarker = defs
+        .append('marker')
+        .attr('id', 'arrow')
+        .attr('markerWidth', 8)
+        .attr('markerHeight', 8)
+        // strokeWidth 线的宽度，随着线的宽度变化，marker的大小也会变化
+        // userSpaceOnUse 图形最前端的大小 保持不变
+        .attr('markerUnits', 'strokeWidth')
+        .attr('viewBox', '0 0 8 8')
+        .attr('refX', 4)
+        .attr('refY', 4)
+        .attr('orient', 'auto') // 方向自动
+
+      arrowMarker
+        .append('path')
+        .attr('d', 'M 0 0 L 8 4 L 0 8 z')
+        .attr('fill', 'yellow')
+
+      //绘制直线
+      var line = svg
+        .append('line')
+        .attr('x1', 0)
+        .attr('y1', 200)
+        .attr('x2', 200)
+        .attr('y2', 200)
+        .attr('stroke', 'red')
+        .attr('stroke-width', 2)
+        .attr('marker-end', 'url(#arrow)')
+
+      //绘制曲线
+      var curve_path = 'M20,70 T80,100 T160,80 T200,90'
+
+      var curve = svg
+        .append('path')
+        .attr('d', curve_path)
+        .attr('fill', 'none')
+        .attr('stroke', 'red')
+        .attr('stroke-width', 2)
+        .attr('marker-start', 'url(#arrow)')
+        .attr('marker-mid', 'url(#arrow)')
+        .attr('marker-end', 'url(#arrow)')
+
+      svg
+        .append('circle')
+        .attr('cx', 210)
+        .attr('cy', 200)
+        .attr('r', 10)
+        .attr('fill', 'greenyellow')
+    </script>
+  </body>
+</html>
