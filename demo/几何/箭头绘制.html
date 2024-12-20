@@ -15,14 +15,34 @@
       }
     </style>
   </head>
+
   <body>
+    <svg>
+      <marker
+        id="circle"
+        markerWidth="12"
+        markerHeight="12"
+        refX="6"
+        refY="6"
+        markerUnits="userSpaceOnUse"
+      >
+        <circle
+          cx="6"
+          cy="6"
+          r="3"
+          stroke-width="2"
+          stroke="context-stroke"
+          fill="context-fill"
+        />
+      </marker>
+    </svg>
     <script src="../../d3/d3.js"></script>
     <script>
       const svg = d3
         .select('body')
         .append('svg')
-        .attr('width', 500)
-        .attr('height', 500)
+        .attr('width', 5000)
+        .attr('height', 5000)
 
       let defs = svg.append('defs')
       let arrowMarker = defs
@@ -41,7 +61,7 @@
       arrowMarker
         .append('path')
         .attr('d', 'M 0 0 L 8 4 L 0 8 z')
-        .attr('fill', 'yellow')
+        .attr('fill', 'context-stroke')
 
       //绘制直线
       var line = svg
@@ -55,7 +75,8 @@
         .attr('marker-end', 'url(#arrow)')
 
       //绘制曲线
-      var curve_path = 'M20,70 T80,100 T160,80 T200,90'
+      // var curve_path = 'M20,70 T80,100 T160,80 T200,90'
+      var curve_path = 'M2300,449.62L2460.175,442.5L2500,450'
 
       var curve = svg
         .append('path')
@@ -63,8 +84,8 @@
         .attr('fill', 'none')
         .attr('stroke', 'red')
         .attr('stroke-width', 2)
-        .attr('marker-start', 'url(#arrow)')
-        .attr('marker-mid', 'url(#arrow)')
+        // .attr('marker-start', 'url(#arrow)')
+        // .attr('marker-mid', 'url(#arrow)')
         .attr('marker-end', 'url(#arrow)')
 
       svg
