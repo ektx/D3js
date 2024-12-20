@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../../d3/d3.js"></script>
+    <script>
+      const svg = d3
+        .select('body')
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 500)
+
+      // 虚线边框效果
+      svg
+        .append('circle')
+        .attr('cx', 100)
+        .attr('cy', 100)
+        .attr('r', 50)
+        .attr('fill', 'red')
+        .attr('stroke', 'yellow')
+        .attr('stroke-width', 5)
+        .attr('stroke-dasharray', '5,5')
+
+      // 渐变边框效果
+      let linearGradient = svg
+        .append('defs')
+        .append('linearGradient')
+        .attr('id', 'gradient')
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '100%')
+        .attr('y2', '0%')
+      // 开始位置颜色
+      linearGradient
+        .append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', 'red')
+      // 结束位置颜色
+      linearGradient
+        .append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', 'blue')
+
+      svg
+        .append('circle')
+        .attr('cx', 250)
+        .attr('cy', 100)
+        .attr('r', 50)
+        .attr('fill', 'none')
+        .attr('stroke', 'url(#gradient)') // 渐变
+        .attr('stroke-width', 5)
+
+      svg
+        .append('circle')
+        .attr('cx', 100)
+        .attr('cy', 250)
+        .attr('r', 50)
+        .attr('fill', '#000')
+        .attr('stroke', 'url(#gradient)') // 渐变
+        .attr('stroke-width', 15)
+        .on('mouseover', function () {
+          d3.select(this).attr('stroke-dasharray', '2,3').attr('fill', 'yellow')
+        })
+        .on('mouseout', function () {
+          d3.select(this).attr('stroke-dasharray', '').attr('fill', '#000')
+        })
+    </script>
+  </body>
+</html>
