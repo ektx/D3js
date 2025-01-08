@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景图片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../../d3/d3.js"></script>
+    <script>
+      const svg = d3
+        .select('body')
+        .append('svg')
+        .attr('width', 500)
+        .attr('height', 500)
+
+      const rect = svg
+        .append('rect')
+        .attr('width', 100)
+        .attr('height', 100)
+        .attr('fill', 'red')
+        .attr('x', 100)
+        .attr('y', 100)
+
+      const start = { x: 0, y: 0, endX: 0, endY: 0 }
+      // 创建拖拽行为
+      const drag = d3
+        .drag()
+        .on('start', function (e) {
+          console.log('拖拽开始')
+          console.log(e.x, e.y)
+          Object.assign(start, {
+            x: e.x,
+            y: e.y,
+            endX: this.x.baseVal.value,
+            endY: this.y.baseVal.value
+          })
+        })
+        .on('drag', function (e, d) {
+          console.log('拖拽中', start)
+          let x = start.endX + e.x - start.x
+          let y = start.endY + e.y - start.y
+
+          // 更新矩形的位置
+          d3.select(this).attr('x', x).attr('y', y)
+        })
+        .on('end', function () {
+          console.log('拖拽结束')
+        })
+
+      // 将拖拽行为应用到矩形上
+      rect.call(drag)
+    </script>
+  </body>
+</html>
